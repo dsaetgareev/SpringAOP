@@ -20,7 +20,7 @@ public class MyLogger {
     @Pointcut("execution(* *(..))")
     private void allMethods() {
     }
-    @Around("allMethods()")
+    @Around("allMethods() && @annotation(ru.dinis.aop.annotations.ShowTime)")
     public Object watchTime(ProceedingJoinPoint joinPoint) {
         long start = System.currentTimeMillis();
         System.out.println("method begin: " + joinPoint.getSignature().toShortString());
@@ -37,7 +37,7 @@ public class MyLogger {
         System.out.println("method end: " + joinPoint.getSignature().toShortString() + "time: " + time + "ms");
         return output;
     }
-    @AfterReturning(pointcut = "allMethods()", returning = "obj")
+    @AfterReturning(pointcut = "allMethods() && @annotation(ru.dinis.aop.annotations.ShowResult)", returning = "obj")
     public void print(Object obj) {
         System.out.println("Print info begin>>");
 

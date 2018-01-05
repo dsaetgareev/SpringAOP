@@ -2,6 +2,8 @@ package ru.dinis.aop;
 
 
 import org.springframework.stereotype.Component;
+import ru.dinis.aop.annotations.ShowResult;
+import ru.dinis.aop.annotations.ShowTime;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -15,7 +17,7 @@ import java.util.TreeSet;
  */
 @Component
 public class FileManager {
-
+    @ShowTime
     public Set<String> getExtensionList(String folder) {
         File dir = new File(folder);
 
@@ -30,7 +32,7 @@ public class FileManager {
         }
         return extList;
     }
-
+    @ShowResult
     public Map<String, Integer> getExtensionCount(String folder) {
         File dir = new File(folder);
         Map<String, Integer> map = new HashMap<String, Integer>();
