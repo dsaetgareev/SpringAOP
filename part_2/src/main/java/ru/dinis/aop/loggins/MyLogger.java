@@ -17,10 +17,10 @@ import java.util.Set;
 @Component
 @Aspect
 public class MyLogger {
-    @Pointcut("execution(* *(..))")
+    @Pointcut("execution(* ru.dinis.aop.interfaces.Manager.*(..))")
     private void allMethods() {
     }
-    @Around("allMethods() && @annotation(ru.dinis.aop.annotations.ShowTime)")
+    @Around("allMethods() && execution(java.util.Map *(..))")
     public Object watchTime(ProceedingJoinPoint joinPoint) {
         long start = System.currentTimeMillis();
         System.out.println("method begin: " + joinPoint.getSignature().toShortString());
@@ -37,7 +37,7 @@ public class MyLogger {
         System.out.println("method end: " + joinPoint.getSignature().toShortString() + "time: " + time + "ms");
         return output;
     }
-    @AfterReturning(pointcut = "allMethods() && @annotation(ru.dinis.aop.annotations.ShowResult)", returning = "obj")
+    @AfterReturning(pointcut = "allMethods() && execution(java.util.Map *(..))", returning = "obj")
     public void print(Object obj) {
         System.out.println("Print info begin>>");
 
